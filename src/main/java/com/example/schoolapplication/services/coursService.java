@@ -29,6 +29,9 @@ public class coursService {
     }
 
     public void CreateCours(cours Cours){
+        if (CoursRepository.existsByCode(Cours.getCode())) {
+            throw new IllegalArgumentException("Ce code de cours existe déjà");
+        }
         CoursRepository.save(Cours);
     }
 

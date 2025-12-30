@@ -39,9 +39,14 @@ public class filiereController {
     }
 
     @PostMapping("/create")
-    public String createfiliere(@ModelAttribute filiere Filiere){
-        filiereService.CreateFiliere(Filiere);
-        return "redirect:/filieres";
+    public String createfiliere(@ModelAttribute filiere Filiere, Model model){
+        try {
+            filiereService.CreateFiliere(Filiere);
+            return "redirect:/filieres";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "filieres/create";
+        }
     }
 
     @GetMapping("/edit/{id}")

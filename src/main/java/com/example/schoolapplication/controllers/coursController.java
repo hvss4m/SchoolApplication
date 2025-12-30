@@ -39,9 +39,13 @@ public class coursController {
     }
 
     @PostMapping("/create")
-    public String createCours(@ModelAttribute cours cours){
-        coursService.CreateCours(cours);
+    public String createCours(@ModelAttribute cours cours, Model model){
+        try{coursService.CreateCours(cours);
         return "redirect:/cours";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "cours/create";
+        }
     }
 
     @GetMapping("/edit/{id}")

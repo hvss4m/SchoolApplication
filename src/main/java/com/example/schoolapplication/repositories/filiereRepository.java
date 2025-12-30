@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface filiereRepository extends JpaRepository<filiere, Long> {
-    //List<eleve> findAllElevesById(Long id);
+    boolean existsByCode(String code);
 }

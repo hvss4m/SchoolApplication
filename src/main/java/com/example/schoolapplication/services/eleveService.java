@@ -37,18 +37,34 @@ public class eleveService {
     }
 
     @Transactional
-    public void CreateEleve(eleve Eleve){
-        if (Eleve.getFiliere() == null) {
+    public void CreateEleve(eleve eleve) {
+
+        if (eleve.getFiliere() == null) {
             throw new RuntimeException("Un élève doit obligatoirement appartenir à une filière");
         }
-        EleveRepository.save(Eleve);
-        dossierAdministratif DA= new dossierAdministratif();
-        DA.setEleve(Eleve);
-        DossierAdminRepository.save(DA);
-        DA.setNumeroInscription(Eleve.getFiliere().getCode()+"-"
-                +DA.getDateCreation().getYear()+
-                "-"+DA.getId());
-        DossierAdminRepository.save(DA);
+
+        EleveRepository.save(eleve);
+
+        List<cours> coursFiliere = eleve.getFiliere().getCours();
+
+        if (coursFiliere != null) {
+            eleve.setCours(new ArrayList<>());
+
+            for (cours c : coursFiliere) {
+                eleve.getCours().add(c);
+                c.getEleves().add(eleve);
+            }
+        }
+
+        dossierAdministratif da = new dossierAdministratif();
+        da.setEleve(eleve);
+        DossierAdminRepository.save(da);
+
+        da.setNumeroInscription(
+                eleve.getFiliere().getCode() + "-"
+                        + da.getDateCreation().getYear() + "-"
+                        + da.getId()
+        );
     }
 
     public void UpdateEleve(Long id, eleve eleve){
@@ -80,6 +96,7 @@ public class eleveService {
         eleve Eleve = EleveRepository.findById(eleveId)
                 .orElseThrow(() -> new RuntimeException("Eleve introuvable"));
         Eleve.setFiliere(Filiere);
+        Eleve.setCours(Filiere.getCours());
         EleveRepository.save(Eleve);
     }
 

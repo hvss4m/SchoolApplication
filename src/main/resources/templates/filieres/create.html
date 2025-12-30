@@ -60,6 +60,11 @@
                     </h4>
                 </div>
                 <div class="card-body p-4">
+                    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Erreur :</strong> <span th:text="${errorMessage}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+
 
                     <form th:action="@{/filieres/create}" th:object="${filiere}" method="post">
 
@@ -85,8 +90,12 @@
                                    class="form-control form-control-lg"
                                    id="code"
                                    th:field="*{code}"
+                                   th:classappend="${errorMessage} ? 'is-invalid' : ''"
                                    placeholder="Ex: SCI"
                                    required>
+                            <div class="invalid-feedback">
+                                Ce code existe déjà.
+                            </div>
                             <div class="form-text">Code unique pour identifier la filière</div>
                         </div>
 

@@ -24,8 +24,11 @@ public class filiereService {
         return FiliereRepository.findAll();
     }
 
-    public void CreateFiliere(filiere Dep){
-        FiliereRepository.save(Dep);
+    public void CreateFiliere(filiere Filiere){
+        if(FiliereRepository.existsByCode(Filiere.getCode())){
+            throw new IllegalArgumentException("Ce code de filière existe déjà");
+        }
+        FiliereRepository.save(Filiere);
     }
 
     public void UpdateFiliere(Long id, filiere Filiere){
