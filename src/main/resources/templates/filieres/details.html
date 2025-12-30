@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails filière</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" th:href="@{/}">SchoolApp</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/eleves}">Élèves</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/filieres}">Filières</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/cours}">Cours</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mt-4 mb-5">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/}">Accueil</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/filieres}">Filières</a></li>
+            <li class="breadcrumb-item active">Détails</li>
+        </ol>
+    </nav>
+
+    <!-- Filière Info Card -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">
+                <i class="bi bi-info-circle"></i> Détails de la filière
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <p class="text-muted mb-1">ID</p>
+                    <p class="h5">
+                        <span class="badge bg-secondary" th:text="${filiere.id}"></span>
+                    </p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <p class="text-muted mb-1">Nom</p>
+                    <p class="h5" th:text="${filiere.nom}"></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <p class="text-muted mb-1">Code</p>
+                    <p class="h5">
+                        <code class="text-primary fs-6" th:text="${filiere.code}"></code>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Élèves Section -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+                👨‍🎓 Liste des élèves
+                <span class="badge bg-light text-primary float-end"
+                      th:text="${#lists.size(eleves)}"></span>
+            </h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th class="px-4">ID</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="e : ${eleves}">
+                        <td class="px-4 align-middle">
+                            <span class="badge bg-secondary" th:text="${e.id}"></span>
+                        </td>
+                        <td class="align-middle" th:text="${e.nom}"></td>
+                        <td class="align-middle" th:text="${e.prenom}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Empty State for Élèves -->
+            <div th:if="${#lists.isEmpty(eleves)}" class="text-center py-4 text-muted">
+                <i class="bi bi-person-x fs-1"></i>
+                <p class="mt-2">Aucun élève inscrit dans cette filière</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cours Section -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">
+                📖 Liste des cours
+                <span class="badge bg-light text-success float-end"
+                      th:text="${#lists.size(cours)}"></span>
+            </h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th class="px-4">ID</th>
+                        <th>Code</th>
+                        <th>Intitulé</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c : ${cours}">
+                        <td class="px-4 align-middle">
+                            <span class="badge bg-secondary" th:text="${c.id}"></span>
+                        </td>
+                        <td class="align-middle">
+                            <code class="text-primary" th:text="${c.code}"></code>
+                        </td>
+                        <td class="align-middle" th:text="${c.intitule}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Empty State for Cours -->
+            <div th:if="${#lists.isEmpty(cours)}" class="text-center py-4 text-muted">
+                <i class="bi bi-book-half fs-1"></i>
+                <p class="mt-2">Aucun cours associé à cette filière</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="d-flex gap-2">
+        <a th:href="@{/filieres}" class="btn btn-outline-primary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste
+        </a>
+        <a th:href="@{/filieres/edit/{id}(id=${filiere.id})}" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Modifier
+        </a>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-light text-center py-3 mt-auto">
+    <p class="mb-0">&copy; 2025 School Application</p>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

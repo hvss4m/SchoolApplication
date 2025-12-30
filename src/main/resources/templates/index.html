@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - School Application</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" th:href="@{/}">
+            <i class="bi bi-mortarboard-fill"></i> SchoolApp
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/}">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/eleves}">Élèves</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/filieres}">Filières</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/cours}">Cours</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-3 fw-bold mb-3">Bienvenue dans l'application School</h1>
+        <p class="lead mb-0">Gérez facilement vos élèves, filières et cours</p>
+    </div>
+</section>
+
+<!-- Main Content -->
+<main class="container mb-5">
+    <div class="row g-4">
+        <!-- Élèves Card -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="icon-box text-white">
+                        👨‍🎓
+                    </div>
+                    <h3 class="card-title h4 mb-3">Élèves</h3>
+                    <p class="card-text text-muted">
+                        Gérez les informations des élèves, leurs inscriptions et leurs cours
+                    </p>
+                    <a th:href="@{/eleves}" class="btn btn-primary mt-3">
+                        Accéder <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filières Card -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="icon-box text-white">
+                        📚
+                    </div>
+                    <h3 class="card-title h4 mb-3">Filières</h3>
+                    <p class="card-text text-muted">
+                        Organisez et gérez les différentes filières de votre établissement
+                    </p>
+                    <a th:href="@{/filieres}" class="btn btn-primary mt-3">
+                        Accéder <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cours Card -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="icon-box text-white">
+                        📖
+                    </div>
+                    <h3 class="card-title h4 mb-3">Cours</h3>
+                    <p class="card-text text-muted">
+                        Administrez les cours disponibles et leurs associations
+                    </p>
+                    <a th:href="@{/cours}" class="btn btn-primary mt-3">
+                        Accéder <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-dark text-light text-center py-4 mt-5">
+    <div class="container">
+        <p class="mb-0">&copy; 2025 School Application. Tous droits réservés.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
